@@ -1,0 +1,12 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: ossm-operator
+  namespace: openshift-operators
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  channel: stable-3.0
+  name: ossm-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace

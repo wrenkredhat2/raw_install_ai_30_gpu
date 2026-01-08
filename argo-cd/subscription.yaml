@@ -1,0 +1,55 @@
+apiVersion: project.openshift.io/v1
+kind: Project
+metadata:
+  name: openshift-gitops-operator
+  labels:
+    kubernetes.io/metadata.name: openshift-gitops-operator
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/audit-version: latest
+    pod-security.kubernetes.io/warn: restricted
+    pod-security.kubernetes.io/warn-version: latest
+    security.openshift.io/scc.podSecurityLabelSync: 'true'
+  annotations:
+    openshift.io/sa.scc.mcs: 's0:c27,c24'
+    openshift.io/sa.scc.supplemental-groups: 1000750000/10000
+    openshift.io/sa.scc.uid-range: 1000750000/10000
+    security.openshift.io/MinimallySufficientPodSecurityStandard: restricted
+spec:
+  finalizers:
+    - kubernetes
+#---
+#apiVersion: operators.coreos.com/v1
+#kind: OperatorGroup
+#metadata:
+#  generateName: openshift-gitops-operator-
+#  annotations:
+#    olm.providedAPIs: 'AnalysisRun.v1alpha1.argoproj.io,AnalysisTemplate.v1alpha1.argoproj.io,AppProject.v1alpha1.argoproj.io,Application.v1alpha1.argoproj.io,ApplicationSet.v1alpha1.argoproj.io,ArgoCD.v1alpha1.argoproj.io,ArgoCD.v1beta1.argoproj.io,ClusterAnalysisTemplate.v1alpha1.argoproj.io,Experiment.v1alpha1.argoproj.io,GitopsService.v1alpha1.pipelines.openshift.io,ImageUpdater.v1alpha1.argocd-image-updater.argoproj.io,NamespaceManagement.v1beta1.argoproj.io,NotificationsConfiguration.v1alpha1.argoproj.io,Rollout.v1alpha1.argoproj.io,RolloutManager.v1alpha1.argoproj.io'
+#  name: openshift-gitops-operator-8rxh7
+#  namespace: openshift-gitops-operator
+#spec:
+#  upgradeStrategy: Default
+---
+apiVersion: operators.coreos.com/v1alpha2
+kind: OperatorGroup
+metadata:
+  generateName: openshift-gitops-operator-
+  annotations:
+    olm.providedAPIs: 'AnalysisRun.v1alpha1.argoproj.io,AnalysisTemplate.v1alpha1.argoproj.io,AppProject.v1alpha1.argoproj.io,Application.v1alpha1.argoproj.io,ApplicationSet.v1alpha1.argoproj.io,ArgoCD.v1alpha1.argoproj.io,ArgoCD.v1beta1.argoproj.io,ClusterAnalysisTemplate.v1alpha1.argoproj.io,Experiment.v1alpha1.argoproj.io,GitopsService.v1alpha1.pipelines.openshift.io,ImageUpdater.v1alpha1.argocd-image-updater.argoproj.io,NamespaceManagement.v1beta1.argoproj.io,NotificationsConfiguration.v1alpha1.argoproj.io,Rollout.v1alpha1.argoproj.io,RolloutManager.v1alpha1.argoproj.io'
+
+  namespace: openshift-gitops-operator
+spec: {}
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  labels:
+    operators.coreos.com/openshift-gitops-operator.openshift-gitops-operator: ''
+  name: openshift-gitops-operator
+  namespace: openshift-gitops-operator
+spec:
+  channel: latest
+  installPlanApproval: Automatic
+  name: openshift-gitops-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+  startingCSV: openshift-gitops-operator.v1.19.0

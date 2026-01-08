@@ -1,0 +1,17 @@
+apiVersion: datasciencecluster.opendatahub.io/v1
+kind: DataScienceCluster
+metadata:
+  name: default-dsc
+  annotations:
+    argocd.argoproj.io/sync-wave: "15"
+spec:
+  components:
+    dashboard:
+      managementState: Managed
+    kserve:
+      managementState: Managed
+      servingPlatform: singlemodel
+    modelmeshserving:
+      managementState: Managed
+    workbenches:
+      managementState: Managed
