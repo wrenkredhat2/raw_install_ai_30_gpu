@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: ai-30-project
+  namespace: openshift-gitops
+spec:
+  # ... other config ...
+  
+  # This allows the project to manage cluster-scoped resources
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+      
+  # You must also allow the "destination" to be the whole cluster
+  destinations:
+    - server: 'https://kubernetes.default.svc'
+      namespace: '*' # Allows deploying to any namespace or cluster-wide
