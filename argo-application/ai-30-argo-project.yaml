@@ -8,4 +8,5 @@ spec:
   # Only allow manifests from your specific repo
   sourceRepos:
     - 'https://github.com/your-org/ai-30-repo.git'
+
     
