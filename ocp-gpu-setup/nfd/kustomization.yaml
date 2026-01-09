@@ -9,4 +9,4 @@ resources:
 
 # Optional: You can force all resources into this namespace 
 # (though it's already defined in the files above)
-namespace: gpu-operator-resources
+namespace: openshift-nfd
