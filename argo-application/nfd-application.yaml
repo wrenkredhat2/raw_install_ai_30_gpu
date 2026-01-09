@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: 'https://github.com/wrenkredhat2/raw_install_ai_30_gpu.git' # Replace with your repo
     targetRevision: main
-    path: ./nfd
+    path: ocp-gpu-setup/nfd
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: openshift-gitops
