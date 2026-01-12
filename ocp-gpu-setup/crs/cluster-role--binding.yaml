@@ -4,6 +4,7 @@ metadata:
   name: argocd-nvidia-policy-patcher
 rules:
 - apiGroups:
+  - '*'
   - nvidia.com
   - gpu-driver
   resources:
