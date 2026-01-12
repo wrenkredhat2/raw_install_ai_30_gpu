@@ -1,10 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: ai-30-project
+  name: ai-30-cluster-resource-project
   namespace: openshift-gitops
 spec:
-  # ... other config ...
+  description: "Dedicated project for AI-30 Custer-resources"
+  # Only allow manifests from your specific repo
+
+  sourceRepos:
+    - 'https://github.com/wrenkredhat2/raw_install_ai_30_gpu.git'
   
   # This allows the project to manage cluster-scoped resources
   clusterResourceWhitelist:
@@ -15,3 +19,35 @@ spec:
   destinations:
     - server: 'https://kubernetes.default.svc'
       namespace: '*' # Allows deploying to any namespace or cluster-wide
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rhoai-3-0-gpu-operator-crs
+  namespace: openshift-gitops
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io # Ensures clean deletion of all components
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/wrenkredhat2/raw_install_ai_30_gpu.git' # Replace with your repo
+    targetRevision: main
+    path: ocp-gpu-setup/crs
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true      # Automatically removes resources deleted from Git
+      selfHeal: true   # Automatically fixes "manual" changes made in the cluster
+    syncOptions:
+#     - CreateNamespace=true           # Creates namespaces like redhat-ods-operator
+      - ServerSideApply=true           # CRITICAL: Handles the large RHOAI/Mesh CRD schemas
+      - SkipDryRunOnMissingResource=true # CRITICAL: Allows Wave 5 to proceed while Wave 0 is still installing CRDs
+      - RespectIgnoreDifferences=true  # Prevents ArgoCD from fighting with OCP controllers
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 10m
