@@ -5,6 +5,7 @@ metadata:
 rules:
 - apiGroups:
   - nvidia.com
+  - gpu-driver
   resources:
   - clusterpolicies
   verbs:
