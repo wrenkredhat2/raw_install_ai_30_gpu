@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# These resources will be applied to the cluster
+resources:
+  - cluster-role--binding.yaml
+  - cluster-policy.yaml
+  - driver.yaml
+  - nodefeaturediscovery.yaml
+
+# Optional: You can force all resources into this namespace 
+# (though it's already defined in the files above)
+namespace: default
