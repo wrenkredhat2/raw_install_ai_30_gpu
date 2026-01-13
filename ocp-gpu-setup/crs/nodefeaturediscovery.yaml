@@ -7,6 +7,16 @@ spec:
   workerConfig:
     configData: |
       core:
+        pci:
+          deviceClassWhitelist:
+            - "0200"
+            - "03"
+            - "12"
+          deviceLabelFields:
+            - "vendor"
+
+
+
       #  labelWhiteList:
       #  noPublish: false
         sleepInterval: 60s
@@ -112,9 +122,21 @@ spec:
       #            vendor: ["15b3"]
       #            device: ["1014", "1017"]
       #          loadedKMod : ["vendor_kmod1", "vendor_kmod2"]
+
   operand:
     imagePullPolicy: IfNotPresent
     servicePort: 12000
+
+workerConfig:
+    config:
+      core:
+        sleepInterval: 60s
+
+tolerations:
+    - key: "nvidia.com/gpu"
+      operator: "Exists"
+      effect: "NoSchedule"
+
 #  customConfig:
 #    configData: |
       #    - name: "more.kernel.features"
