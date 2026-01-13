@@ -3,5 +3,6 @@ kind: OperatorGroup
 metadata:
   generateName: redhat-ods-operator-
   namespace: redhat-ods-operator
+  name: redhat-ods-operator
 spec:
   upgradeStrategy: Default
