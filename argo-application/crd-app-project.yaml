@@ -45,6 +45,7 @@ spec:
       - ServerSideApply=true           # CRITICAL: Handles the large RHOAI/Mesh CRD schemas
       - SkipDryRunOnMissingResource=true # CRITICAL: Allows Wave 5 to proceed while Wave 0 is still installing CRDs
       - RespectIgnoreDifferences=true  # Prevents ArgoCD from fighting with OCP controllers
+      - PermitOnlyProjectScopedNamespaces=true
     retry:
       limit: 5
       backoff:
