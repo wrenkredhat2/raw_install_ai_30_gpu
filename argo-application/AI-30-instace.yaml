@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: rhoai-3-0-ods-operator
+  name: rhoai-3-0-ods-instance
   namespace: openshift-gitops
   finalizers:
     - resources-finalizer.argocd.argoproj.io # Ensures clean deletion of all components
@@ -10,10 +10,10 @@ spec:
   source:
     repoURL: 'https://github.com/wrenkredhat2/raw_install_ai_30_gpu.git' # Replace with your repo
     targetRevision: main
-    path: AI30-operator
+    path: AI30-Instance
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: redhat-ods-operator
+    namespace: redhat-ods-applications
   syncPolicy:
     automated:
       prune: true      # Automatically removes resources deleted from Git
