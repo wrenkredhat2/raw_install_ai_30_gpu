@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: rhoai-3-0-ods-instance
+  name: minio-instance
   namespace: openshift-gitops
   finalizers:
     - resources-finalizer.argocd.argoproj.io # Ensures clean deletion of all components
@@ -13,7 +13,7 @@ spec:
     path: MINIO
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: redhat-ods-applications
+    namespace: minio
   syncPolicy:
     automated:
       prune: true      # Automatically removes resources deleted from Git
