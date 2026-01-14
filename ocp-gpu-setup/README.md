@@ -1,14 +1,15 @@
-# OCP GPU Setup
+# OCP AI-30 Setup
 
 Complete setup guide for enabling NVIDIA GPU support in OpenShift Container Platform (OCP) clusters running on AWS.
 
 ## Overview
 
 This setup deploys a complete GPU-enabled OpenShift environment with:
-- **GPU-enabled worker nodes** with NVIDIA L40S GPUs
 - **Node Feature Discovery (NFD)** for hardware detection
 - **NVIDIA GPU Operator** for automated GPU resource management
 - **Custom configurations** for production GPU workloads
+- **AI-30-Operator** for production GPU workloads
+- **AI-30-Instance** for production GPU workloads
 
 ## Clone the Repository
 
@@ -17,12 +18,14 @@ git clone https://github.com/rh-aiservices-bu/ocp-gpu-setup.git
 cd ocp-gpu-setup
 ```
 
-## Step 1: Configure GPU Machine Sets
+## Step 1: Install Argo
 
-The machine set script creates AWS EC2 instances with GPU support and configures them as OpenShift worker nodes.
+All subsequent steps are excuted by injecting applications into ARGO-CD.
 
 ```bash
-./machine-set/gpu-machineset.sh
+oc create -f ./argo-cd/subscription.yaml
+oc create -f ./argo-cd/.yaml
+
 ```
 
 **Configuration options:**
