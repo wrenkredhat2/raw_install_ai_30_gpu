@@ -132,11 +132,6 @@ workerConfig:
       core:
         sleepInterval: 60s
 
-tolerations:
-    - key: "nvidia.com/gpu"
-      operator: "Exists"
-      effect: "NoSchedule"
-
 #  customConfig:
 #    configData: |
       #    - name: "more.kernel.features"
