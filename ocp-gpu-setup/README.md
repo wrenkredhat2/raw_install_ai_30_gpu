@@ -1,6 +1,6 @@
 # OCP AI-30 Setup
 
-Complete setup guide for enabling NVIDIA GPU support in OpenShift Container Platform (OCP) clusters running on AWS.
+Complete setup guide for Installing an NVIDIA-GPU enabled
 
 ## Overview
 
@@ -21,6 +21,7 @@ cd ocp-gpu-setup
 ## Step 1: Install Argo
 
 All subsequent steps are excuted by injecting applications into ARGO-CD.
+as for the Applications is skip on missingResources is true, there might be longer Sync-runs due to missing CRDs in combination with thier creation and retries.
 
 ```bash
 oc create -f ./argo-cd/subscription.yaml
@@ -28,46 +29,31 @@ oc create -f ./argo-cd/.yaml
 
 ```
 
-**Configuration options:**
-1. Select "12) L40S Single GPU" - Creates nodes with NVIDIA L40S GPUs
-2. Choose "p" for private - Internal GPU access (vs "s" for shared/external)
-3. Enter AWS region, probably "us-east-2" - AWS region for deployment
-4. Enter Availability zone e.g. "1" - AZ within the region (1, 2, or 3)
-5. Answer "n" for spot instances - Use on-demand instances for stability
+**Note:**:
+If there is the need of revoing a namespace dur to syncronistaion Problems ther is a small redmae comprisoing the commands of how to get rid of TERMINATING namespaces:
+ --> argo-cd/remove-gitops.gist
 
-**What this does:**
-- Creates GPU-enabled EC2 instances (g5.xlarge for L40S)
-- Applies `nvidia.com/gpu` taints to GPU nodes
-- Adds appropriate accelerator labels for workload scheduling
-- Configures networking and security groups
-
-**Note:** Check if you have the default machineset available. If not, run the command twice.
-
-**Scaling configuration:**
-- Set the GPU MachineSet to **2 instances** (for GPU workloads)
-- Configure the default MachineSet to **6 instances** (for non-GPU workloads)
-
-Wait for nodes to be provisioned (typically 5-10 minutes).
 
 ## Step 2: Deploy Node Feature Discovery (NFD)
 
 NFD detects hardware features on cluster nodes and labels them for workload scheduling.
 
 ```bash
-oc apply -f ./nfd
+oc create -f ./argo-application/nfd-application.yaml
 ```
 
 **What this deploys:**
 - **Namespace**: `openshift-nfd` with cluster monitoring
 - **Operator**: Red Hat NFD operator (v4.18.0)
 - **Configuration**: Scans nodes every 60 seconds for PCI devices including GPUs
+- **NFD-Instance**: the NodefeatureDisconry 
 
 ## Step 3: Deploy NVIDIA GPU Operator
 
 The GPU Operator automates the management of NVIDIA GPU software stack.
 
 ```bash
-oc apply -f ./gpu-operator
+Warning: metadata.finalizers: "argoproj.io/resources-finalizer": prefer a domain-qualified finalizer name including a path (/) to avoid accidental conflicts with other finalizer writers
 ```
 
 **What this deploys:**

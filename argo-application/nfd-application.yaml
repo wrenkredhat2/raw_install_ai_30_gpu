@@ -4,7 +4,7 @@ metadata:
   name: rhoai-3-0-nfd
   namespace: openshift-gitops
   finalizers:
-    - resources-finalizer.argocd.argoproj.io # Ensures clean deletion of all components
+    - argoproj.io/resources-finalizer # Ensures clean deletion of all components
 spec:
   project: default
   source:
