@@ -4,7 +4,7 @@ kind: Kustomization
 # These resources will be applied to the cluster
 resources:
   - namespace.yaml
-  - cluster-role--binding.yaml
+  - clusterrole--binding.yaml
   - operator-group.yaml
   - subscription.yaml
   - nodefeaturediscovery.yaml
