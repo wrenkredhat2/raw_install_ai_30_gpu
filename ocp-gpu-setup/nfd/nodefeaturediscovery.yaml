@@ -127,10 +127,10 @@ spec:
     imagePullPolicy: IfNotPresent
     servicePort: 12000
 
-workerConfig:
-    config:
-      core:
-        sleepInterval: 60s
+#workerConfig:
+#    config:
+#      core:
+#        sleepInterval: 60s
 
 #  customConfig:
 #    configData: |

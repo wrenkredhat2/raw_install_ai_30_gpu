@@ -1,0 +1,74 @@
+{
+    "apiVersion": "v1",
+    "kind": "Namespace",
+    "metadata": {
+        "annotations": {
+            "argocd.argoproj.io/tracking-id": "rhoai-3-0-nfd:/Namespace:openshift-gitops/openshift-nfd",
+            "openshift.io/sa.scc.mcs": "s0:c28,c7",
+            "openshift.io/sa.scc.supplemental-groups": "1000770000/10000",
+            "openshift.io/sa.scc.uid-range": "1000770000/10000",
+            "security.openshift.io/MinimallySufficientPodSecurityStandard": "privileged"
+        },
+        "creationTimestamp": "2026-01-14T13:02:47Z",
+        "deletionTimestamp": "2026-01-14T13:06:35Z",
+        "labels": {
+            "kubernetes.io/metadata.name": "openshift-nfd",
+            "name": "openshift-nfd",
+            "olm.operatorgroup.uid/60d10952-65a2-4be5-b27d-fc4d5cebbdb2": "",
+            "olm.operatorgroup.uid/f0f3aed9-7b2e-447d-ab03-b2e1590a2f50": "",
+            "openshift.io/cluster-monitoring": "true",
+            "pod-security.kubernetes.io/audit": "privileged",
+            "pod-security.kubernetes.io/audit-version": "latest",
+            "pod-security.kubernetes.io/warn": "privileged",
+            "pod-security.kubernetes.io/warn-version": "latest",
+            "security.openshift.io/scc.podSecurityLabelSync": "true"
+        },
+        "name": "openshift-nfd",
+        "resourceVersion": "130745",
+        "uid": "59c6ebc4-72f3-4f21-84bf-43e1c9d2a34c"
+    },
+    "spec": {
+        "finalizers": [
+        ]
+    },
+    "status": {
+        "conditions": [
+            {
+                "lastTransitionTime": "2026-01-14T13:07:16Z",
+                "message": "All resources successfully discovered",
+                "reason": "ResourcesDiscovered",
+                "status": "False",
+                "type": "NamespaceDeletionDiscoveryFailure"
+            },
+            {
+                "lastTransitionTime": "2026-01-14T13:07:16Z",
+                "message": "All legacy kube types successfully parsed",
+                "reason": "ParsedGroupVersions",
+                "status": "False",
+                "type": "NamespaceDeletionGroupVersionParsingFailure"
+            },
+            {
+                "lastTransitionTime": "2026-01-14T13:07:18Z",
+                "message": "All content successfully deleted, may be waiting on finalization",
+                "reason": "ContentDeleted",
+                "status": "False",
+                "type": "NamespaceDeletionContentFailure"
+            },
+            {
+                "lastTransitionTime": "2026-01-14T13:07:18Z",
+                "message": "Some resources are remaining: clusterserviceversions.operators.coreos.com has 1 resource instances",
+                "reason": "SomeResourcesRemain",
+                "status": "True",
+                "type": "NamespaceContentRemaining"
+            },
+            {
+                "lastTransitionTime": "2026-01-14T13:07:18Z",
+                "message": "Some content in the namespace has finalizers remaining: operators.coreos.com/csv-cleanup in 1 resource instances",
+                "reason": "SomeFinalizersRemain",
+                "status": "True",
+                "type": "NamespaceFinalizersRemaining"
+            }
+        ],
+        "phase": "Terminating"
+    }
+}
