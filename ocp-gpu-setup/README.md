@@ -53,7 +53,7 @@ oc create -f ./argo-application/nfd-application.yaml
 The GPU Operator automates the management of NVIDIA GPU software stack.
 
 ```bash
-Warning: metadata.finalizers: "argoproj.io/resources-finalizer": prefer a domain-qualified finalizer name including a path (/) to avoid accidental conflicts with other finalizer writers
+oc create -f argo-application/gpu-operator.yaml
 ```
 
 **What this deploys:**
@@ -62,6 +62,7 @@ Warning: metadata.finalizers: "argoproj.io/resources-finalizer": prefer a domain
 - **Components**: GPU drivers, container runtime, device plugins, monitoring
 
 Wait for both NFD and GPU Operator to be fully installed before proceeding.
+The GPU-Operator may be degrede for some time untill Everthing is processed, but in the end it will become healthy ( On an AWS-Instance after it took one 1h )
 
 ## Step 4: Deploy Custom Resources (CRs)
 
@@ -70,25 +71,23 @@ The CRs configure how NFD and the GPU Operator should operate in your cluster.
 ```bash
 oc apply -f ./crs
 ```
+## Step 5: Deploy AI-3.X-Operator
 
-**What this configures:**
+We need the Operator to be installed, ...:
 
-### Node Feature Discovery Configuration
-- **Hardware Detection**: Identifies NVIDIA GPUs and other PCI devices
-- **Node Labeling**: Adds vendor and device information as node labels
-- **Scheduling**: Enables GPU-aware pod scheduling
+```bash
+oc create -f ./argo-application/AI-30-operator.yaml
+```
 
-### GPU Cluster Policy
-- **Driver Management**: Automatic NVIDIA driver installation and updates
-- **Monitoring**: DCGM (Data Center GPU Manager) for GPU metrics
-- **Device Plugin**: Exposes GPU resources to Kubernetes scheduler
-- **MIG Support**: Multi-Instance GPU configuration capability
-- **Validation**: GPU functionality testing and validation
+## Step 6: Deploy AI-3.X-Instance
 
-### Driver Configuration
-- **Container Image**: Specific NVIDIA driver version with SHA256 verification
-- **Registry**: Uses NVIDIA's official container registry
-- **Integration**: OpenShift driver toolkit compatibility
+And now the actual AI-Platform
+
+```bash
+oc create -f ./argo-application/AI-30-instance.yaml
+```
+
+
 
 ## Verification
 
