@@ -6,6 +6,7 @@ resources:
   - namespace.yaml
   - operator-group.yaml
   - subscription.yaml
+  - nodefeaturediscovery.yaml
 
 # Optional: You can force all resources into this namespace 
 # (though it's already defined in the files above)
